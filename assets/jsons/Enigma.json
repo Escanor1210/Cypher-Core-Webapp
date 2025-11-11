@@ -1,0 +1,281 @@
+{
+  "title": "ELI5: The Enigma Machine",
+  "format": "2D animated explainer",
+  "target_audience": "ages 10+ (ELI5-friendly, accurate)",
+  "duration_estimate_sec": 300,
+  "fps": 24,
+  "style": {
+    "palette": "muted WWII tones + bright highlight colors",
+    "characters": "simple flat shapes with expressive eyes",
+    "motion": "snappy, minimal tweening, UI-like overlays for tech parts",
+    "text_style": "large captions; key terms in bold"
+  },
+  "audio": {
+    "music_theme": "gentle marimba/pizzicato strings; tense drums for war scenes",
+    "sfx_pack": [
+      "typewriter_click",
+      "radio_static",
+      "rotor_tick",
+      "plug_cable_snap",
+      "lamp_pop",
+      "factory_ambience",
+      "bomb_timer_tick",
+      "ocean_waves_low",
+      "teleprinter_whirr"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "S1",
+      "title": "Before Enigma — Simple Secrets",
+      "duration_sec": 20,
+      "narration": "Before the Enigma, armies sent messages by runners, flags, or plain radio. Codes were simple, so enemies could often guess them.",
+      "visuals": {
+        "camera": "wide shot of a paper map; arrows move across; radio tower emits waves",
+        "actions": [
+          "Soldier whispers a simple code to a runner",
+          "Enemy with headphones scribbles translation easily"
+        ],
+        "on_screen_text": [
+          "Problem: Easy-to-crack codes",
+          "Risk: Stolen plans"
+        ]
+      },
+      "sfx": ["typewriter_click", "radio_static"],
+      "transition": "wipe_right"
+    },
+    {
+      "id": "S2",
+      "title": "Enter Enigma — A Magic Letter Mixer",
+      "duration_sec": 18,
+      "narration": "Germany adopted the Enigma: a machine that turns each letter into a different letter, changing every key press.",
+      "visuals": {
+        "camera": "close-up of a cute, boxy machine with keys and light bulbs",
+        "actions": [
+          "Finger presses A; lamp for Q lights",
+          "Press A again; a different lamp, T, lights"
+        ],
+        "on_screen_text": ["Each press → different result"]
+      },
+      "sfx": ["rotor_tick", "lamp_pop"],
+      "transition": "cut"
+    },
+    {
+      "id": "S3",
+      "title": "Enigma Construction — What’s Inside",
+      "duration_sec": 35,
+      "narration": "An Enigma has a keyboard and lampboard, a plugboard in front, several rotors in the middle, and a reflector in the back. Wires inside map letters to other letters.",
+      "visuals": {
+        "camera": "exploded view diagram",
+        "actions": [
+          "Labels pop in: Keyboard, Lampboard, Plugboard, Rotors, Reflector",
+          "Wires draw between letters to show remapping"
+        ],
+        "on_screen_text": [
+          "Keyboard → Plugboard → Rotors → Reflector → Rotors → Plugboard → Lamps",
+          "Symmetric encryption: same settings encrypt & decrypt"
+        ],
+        "callouts": [
+          {"part": "Plugboard (Steckerbrett)", "note": "Pairs letters with cables"},
+          {"part": "Rotors", "note": "Each rotor permutes A–Z; they rotate"},
+          {"part": "Reflector", "note": "Sends signal back a different way"},
+          {"part": "Lampboard", "note": "Shows the output letter"}
+        ]
+      },
+      "sfx": ["plug_cable_snap", "rotor_tick"],
+      "transition": "dissolve"
+    },
+    {
+      "id": "S4",
+      "title": "Rotors and the Marching Alphabet",
+      "duration_sec": 28,
+      "narration": "Rotors step like an odometer. The right rotor steps every press. At special notches, the middle rotor also steps, causing occasional double-steps.",
+      "visuals": {
+        "camera": "side view of three rotors: Right, Middle, Left",
+        "actions": [
+          "Counter wheels marked A–Z rotate",
+          "At notch, middle rotor advances; show 'double-step' moment"
+        ],
+        "on_screen_text": ["Step! Step! Double-step!"]
+      },
+      "sfx": ["rotor_tick"],
+      "transition": "cut"
+    },
+    {
+      "id": "S5",
+      "title": "Daily Settings — The Secret Recipe",
+      "duration_sec": 30,
+      "narration": "Operators shared a daily key: which rotors to use and in what order, each ring setting, the starting positions, and which plugboard pairs to connect.",
+      "visuals": {
+        "camera": "top-down desk view",
+        "actions": [
+          "Paper key sheet appears: Rotor order = III II I",
+          "Ring settings = 02 18 12 (example)",
+          "Start = A Q L",
+          "Plugboard pairs: A–M, T–Z, etc."
+        ],
+        "on_screen_text": [
+          "Rotor Order (Walzenlage)",
+          "Ring Setting (Ringstellung)",
+          "Start Positions (Grundstellung)",
+          "Plugboard Pairs"
+        ]
+      },
+      "sfx": ["paper_rustle", "plug_cable_snap"],
+      "transition": "wipe_left"
+    },
+    {
+      "id": "S6",
+      "title": "How a Letter Travels",
+      "duration_sec": 32,
+      "narration": "Type a letter: it goes through the plugboard, rotors, hits the reflector, and returns through the rotors and plugboard to light a lamp. Then the right rotor steps.",
+      "visuals": {
+        "camera": "signal-line animation",
+        "actions": [
+          "Signal draws along path with arrows",
+          "Reflects and returns; different lamp lights",
+          "Rotor advances one step"
+        ],
+        "on_screen_text": ["Path: PB → R1 → R2 → R3 → Reflector → R3 → R2 → R1 → PB"]
+      },
+      "sfx": ["lamp_pop", "rotor_tick"],
+      "transition": "cut"
+    },
+    {
+      "id": "S7",
+      "title": "Why It Seemed Unbreakable",
+      "duration_sec": 20,
+      "narration": "With many rotors, ring settings, start positions, and plugboard cables, there were astronomically many possibilities. Guessing by hand was hopeless.",
+      "visuals": {
+        "camera": "numbers raining down Matrix-style but playful",
+        "actions": [
+          "Counter spins up to huge combinations",
+          "Enemy analyst faints comically"
+        ],
+        "on_screen_text": ["Billions to trillions of possibilities"]
+      },
+      "sfx": ["bomb_timer_tick"],
+      "transition": "dissolve"
+    },
+    {
+      "id": "S8",
+      "title": "During the War — Messages in the Air",
+      "duration_sec": 22,
+      "narration": "German units used Enigma on land, sea, and air. Radio carried scrambled text, which looked like nonsense to everyone else.",
+      "visuals": {
+        "camera": "montage: tank, U-boat, aircraft; radio waves between them",
+        "actions": [
+          "Operators type; ciphertext prints: XQYJZ...",
+          "Allies listen but cannot read"
+        ],
+        "on_screen_text": ["Ciphertext: XQYJZ ..."]
+      },
+      "sfx": ["radio_static", "teleprinter_whirr"],
+      "transition": "cut"
+    },
+    {
+      "id": "S9",
+      "title": "Cracking Enigma — Team Effort",
+      "duration_sec": 40,
+      "narration": "Polish mathematicians made early breakthroughs. Later at Bletchley Park, codebreakers like Alan Turing and Gordon Welchman built 'bombes' to test settings quickly, using clues called 'cribs.'",
+      "visuals": {
+        "camera": "timeline sweep: 1930s Poland → WWII Britain",
+        "actions": [
+          "Cartoon portraits labeled: Rejewski, Różycki, Zygalski",
+          "Cut to Turing and Welchman beside a spinning bombe machine",
+          "Crib overlay: 'WEATHER REPORT' aligns with ciphertext"
+        ],
+        "on_screen_text": ["Polish breakthroughs → British bombes", "Crib: a guessed plaintext"]
+      },
+      "sfx": ["factory_ambience", "bomb_timer_tick"],
+      "transition": "wipe_down"
+    },
+    {
+      "id": "S10",
+      "title": "Why Breaking It Mattered",
+      "duration_sec": 26,
+      "narration": "Reading Enigma let the Allies reroute ships, anticipate attacks, and plan operations. Many historians believe this shortened the war and saved countless lives.",
+      "visuals": {
+        "camera": "map of Atlantic; convoy path bends safely away from U-boats",
+        "actions": [
+          "Enemy plan pops up; Allied path adjusts",
+          "Calendar flips faster"
+        ],
+        "on_screen_text": ["Impact: Rerouted convoys, foiled ambushes"]
+      },
+      "sfx": ["ocean_waves_low"],
+      "transition": "dissolve"
+    },
+    {
+      "id": "S11",
+      "title": "After Enigma — Lessons for Today",
+      "duration_sec": 18,
+      "narration": "Enigma showed that strong math and careful procedures matter. Modern cryptography uses computers and public-key methods, but the idea of well-designed secrets remains.",
+      "visuals": {
+        "camera": "Enigma morphs into a modern lock icon and a laptop",
+        "actions": ["Binary digits flow into a padlock that clicks shut"],
+        "on_screen_text": ["From rotors to algorithms"]
+      },
+      "sfx": ["lamp_pop"],
+      "transition": "cut"
+    },
+    {
+      "id": "S12",
+      "title": "Quick Recap",
+      "duration_sec": 21,
+      "narration": "Enigma mixed letters using plugs, rotors, and a reflector. Daily settings kept it synced. Codebreakers used math and machines to read messages, changing the course of WWII.",
+      "visuals": {
+        "camera": "icon parade: plugboard → rotors → reflector → bombe → convoy",
+        "actions": ["Checkmarks appear over each icon"],
+        "on_screen_text": [
+          "Plugboard + Rotors + Reflector",
+          "Daily Keys",
+          "Cribs + Bombes",
+          "Strategic Advantage"
+        ]
+      },
+      "sfx": ["rotor_tick", "bomb_timer_tick"],
+      "transition": "fade_to_black"
+    }
+  ],
+  "appendices": {
+    "deeper_dive_cards": [
+      {
+        "title": "Plugboard (Steckerbrett)",
+        "content": "Up to 10 letter pairs typically connected. Each pair swaps letters both before and after the rotor path, dramatically increasing complexity."
+      },
+      {
+        "title": "Rotors",
+        "content": "Each rotor is a 26-letter substitution with a turnover notch. Common rotors: I, II, III, IV, V; later naval versions added more. Ring setting offsets the wiring map relative to the turnover notch."
+      },
+      {
+        "title": "Reflector (Umkehrwalze)",
+        "content": "Creates a reversible path: encryption and decryption are identical with the same settings. Downside: a letter can never encrypt to itself, a property used by codebreakers."
+      },
+      {
+        "title": "Double-Step Phenomenon",
+        "content": "When the middle rotor advances on its own and again due to the right rotor’s notch, causing two steps in a row. This affects the cipher’s periodicity."
+      },
+      {
+        "title": "Bombe Logic (Simplified)",
+        "content": "Bombes tested many rotor positions for contradictions using guessed plaintext fragments. When no contradictions arose, likely settings were flagged for operators to try."
+      }
+    ],
+    "glossary": [
+      {"term": "Crib", "definition": "A good guess of some plaintext within a ciphertext."},
+      {"term": "Ring Setting (Ringstellung)", "definition": "Internal offset of rotor wiring relative to the turnover notch."},
+      {"term": "Start Position (Grundstellung)", "definition": "Visible rotor letters at the window when starting an encipherment."},
+      {"term": "Walzenlage", "definition": "Chosen rotor set and their left-to-right order."}
+    ],
+    "credits": {
+      "historical_note": "Acknowledges Polish Cipher Bureau and Bletchley Park efforts.",
+      "advice": "For classrooms, pause after Scenes 3, 6, and 9 for quick Q&A."
+    }
+  },
+  "production_notes": {
+    "voiceover_tone": "curious, friendly; slows down on technical terms",
+    "captioning": "burned-in key terms + separate SRT",
+    "accessibility": "high-contrast text, descriptive audio for diagrams",
+    "export": "1080p, 16:9"
+  }
+}

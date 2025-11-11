@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Modular encryption and encoding platform. Transform text with cipher pipelines - all in your browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <title>Cypher Core — Modular Coder & Encrypter</title>
+  <style>
+    :root{
+      --navy:#120b2e;
+      --navy-2:#160f3a;
+      --brand:#2a1a64;
+      --link:#54a9ff;
+      --blue:#5fb2ff;
+      --pink:#ff5bc2;
+      --text:#1d1d25;
+      --muted:#61677a;
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;font-family:Inter,system-ui,'Segoe UI',Roboto,Arial,sans-serif;color:var(--text);scroll-behavior:smooth;}
+    a{color:inherit;text-decoration:none;}
+
+    /* NAVBAR */
+    .nav{position:sticky;top:0;z-index:100;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 clamp(16px,5vw,48px);}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:24px;color:var(--brand);cursor:pointer;transition:opacity .2s}
+    .brand:hover{opacity:.85}
+    .brand img{height:36px;width:auto}
+    .menu{display:flex;gap:28px;align-items:center}
+    .menu a{color:var(--link);font-weight:600;letter-spacing:.3px;transition:opacity .2s}
+    .menu a:hover{opacity:.7}
+    .menu a.active{color:var(--brand)}
+    .signin{margin-left:8px}
+
+    /* Mobile menu toggle */
+    .menu-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+    .menu-toggle span{display:block;width:24px;height:2px;background:var(--brand);margin:5px 0;transition:all .3s}
+
+    @media (max-width: 768px){
+      .menu-toggle{display:block}
+      .menu{position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.1);display:none}
+      .menu.active{display:flex}
+    }
+
+    /* HERO */
+    .hero{position:relative;isolation:isolate;overflow:hidden;min-height:calc(100vh - 72px)}
+    .hero-inner{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;padding:60px clamp(16px,5vw,48px) 80px;max-width:1400px;margin:0 auto}
+
+    /* Decorative curved navy background */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:radial-gradient(1200px 1200px at 65% 35%, rgba(255,255,255,0.04) 0 40%, transparent 41%), 
+                 linear-gradient(180deg, var(--navy-2), var(--navy));
+      clip-path:ellipse(88% 120% at 80% 40%);
+    }
+
+    .col-left{max-width:760px;animation:fadeInLeft .8s ease-out}
+    @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+
+    .eyebrow{
+      margin-top:8px;
+      font-family: Helvetica, sans-serif;
+      font-size:clamp(32px,5vw,48px);
+      letter-spacing:8px;
+      font-weight:900;
+      color:var(--brand);
+      line-height:1.2
+    }
+    .title{
+      font-size:clamp(48px,8vw,78px);
+      line-height:0.95;
+      margin:4px 0 6px;
+      color:var(--brand);
+      font-weight:900;
+      letter-spacing:2px
+    }
+    .subtitle{
+      font-size:clamp(24px,4vw,34px);
+      font-family: "Inter", sans-serif;
+      color:#1079e1;
+      font-weight:300;
+      letter-spacing:1px;
+      margin:4px 0 18px
+    }
+    .desc{
+      max-width:640px;
+      color:var(--text);
+      font-size:clamp(16px,2vw,18px);
+      line-height:1.7;
+      margin:16px 0
+    }
+
+    .cta{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 28px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:16px;
+      border:0;
+      cursor:pointer;
+      transition:all .2s ease;
+      box-shadow:0 4px 14px rgba(0,0,0,.12)
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+    .btn:active{transform:translateY(0)}
+    .btn-primary{background:var(--blue);color:#fff}
+    .btn-secondary{background:var(--pink);color:#fff}
+
+    .hero-art{display:flex;justify-content:center;animation:fadeInRight .8s ease-out}
+    @keyframes fadeInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+    
+    .hero-art .frame{
+      position:relative;
+      max-width:min(600px,100%);
+      animation:float 3s ease-in-out infinite
+    }
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+    
+    .hero-art img{
+      width:100%;
+      height:auto;
+      display:block;
+      filter:drop-shadow(0 24px 48px rgba(0,0,0,.4));
+      border-radius:12px
+    }
+
+    /* FEATURES SECTION */
+    .features{
+      padding:80px clamp(16px,5vw,48px);
+      background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);
+      max-width:1400px;
+      margin:0 auto
+    }
+    .section-title{
+      text-align:center;
+      font-size:clamp(32px,5vw,42px);
+      font-weight:800;
+      color:var(--brand);
+      margin-bottom:20px
+    }
+    .section-desc{
+      text-align:center;
+      max-width:700px;
+      margin:0 auto 60px;
+      font-size:18px;
+      color:var(--muted);
+      line-height:1.7
+    }
+    .features-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:32px
+    }
+    .feature-card{
+      background:#fff;
+      padding:32px;
+      border-radius:var(--radius);
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+      transition:all .3s ease
+    }
+    .feature-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 12px 32px rgba(0,0,0,.15)
+    }
+    .feature-icon{
+      width:56px;
+      height:56px;
+      background:linear-gradient(135deg,var(--blue),var(--link));
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:20px;
+      font-size:28px
+    }
+    .feature-card h3{
+      font-size:20px;
+      color:var(--brand);
+      margin-bottom:12px;
+      font-weight:700
+    }
+    .feature-card p{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px
+    }
+
+    /* MODULES SECTION */
+    .modules{
+      padding:80px clamp(16px,5vw,48px);
+      background:#fff;
+      max-width:1400px;
+      margin:0 auto
+    }
+    .modules-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+      gap:20px;
+      margin-top:40px
+    }
+    .module-item{
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      padding:24px;
+      border-radius:var(--radius);
+      text-align:center;
+      color:#fff;
+      font-weight:600;
+      font-size:14px;
+      transition:all .3s ease;
+      box-shadow:0 4px 12px rgba(102,126,234,.3)
+    }
+    .module-item:hover{
+      transform:scale(1.05);
+      box-shadow:0 8px 24px rgba(102,126,234,.5)
+    }
+    .module-icon{font-size:32px;margin-bottom:8px}
+
+    /* CTA SECTION */
+    .cta-section{
+      padding:80px clamp(16px,5vw,48px);
+      background:linear-gradient(135deg,var(--navy-2),var(--navy));
+      text-align:center;
+      color:#fff
+    }
+    .cta-section h2{
+      font-size:clamp(32px,5vw,48px);
+      font-weight:800;
+      margin-bottom:20px
+    }
+    .cta-section p{
+      font-size:20px;
+      margin-bottom:32px;
+      opacity:.9
+    }
+    .btn-large{
+      padding:18px 40px;
+      font-size:18px;
+      background:linear-gradient(135deg,var(--blue),var(--link));
+      color:#fff
+    }
+
+    /* FOOTER */
+    .footer{
+      background:var(--navy);
+      color:#fff;
+      padding:60px clamp(16px,5vw,48px) 30px
+    }
+    .footer-content{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:40px;
+      max-width:1400px;
+      margin:0 auto 40px
+    }
+    .footer-section h4{
+      color:var(--blue);
+      margin-bottom:16px;
+      font-size:18px;
+      font-weight:700
+    }
+    .footer-section ul{list-style:none}
+    .footer-section ul li{margin-bottom:10px}
+    .footer-section a{color:rgba(255,255,255,.8);transition:color .2s}
+    .footer-section a:hover{color:var(--blue)}
+    .footer-section p{color:rgba(255,255,255,.7);line-height:1.6}
+    .footer-bottom{
+      text-align:center;
+      padding-top:30px;
+      border-top:1px solid rgba(255,255,255,.1);
+      color:rgba(255,255,255,.6);
+      font-size:14px
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1060px){
+      .hero-inner{grid-template-columns:1fr;gap:40px;text-align:center}
+      .hero::after{clip-path:ellipse(100% 80% at 55% 20%)}
+      .hero-art{order:-1}
+      .col-left{max-width:100%}
+      .cta{justify-content:center}
+    }
+
+    @media (max-width: 640px){
+      .nav-inner{padding:0 16px}
+      .hero-inner{padding:40px 16px 60px}
+      .features,.modules,.cta-section{padding:60px 16px}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <img alt="Cypher Core" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%2354a9ff' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='10' rx='2' ry='2'/%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'/%3E%3Ccircle cx='12' cy='16' r='1.6' fill='%2354a9ff'/%3E%3C/svg%3E"/>
+        Cypher Core
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="menu" id="menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="signin.html" class="signin">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" role="banner">
+    <div class="hero-inner">
+      <div class="col-left">
+        <div class="eyebrow">MODULAR</div>
+        <div class="subtitle">Coder &amp; Encrypter</div>
+        <p class="desc">
+          Web app offering modular conversion, encoding and encryption online.
+          Translations are done in the browser without any server interaction.
+          This is an Open Source Project.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#features">Learn More</a>
+          <a class="btn btn-secondary" href="cypher-engine.html">Cypher Engine</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="frame">
+          <!-- Replace with your actual illustration path -->
+          <img src="assets/images/hero-illustration.png" alt="Encryption & Security Illustration" 
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22500%22%3E%3Crect fill=%22%23160f3a%22 width=%22600%22 height=%22500%22 rx=%2220%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2354a9ff%22 font-size=%2224%22 font-family=%22system-ui%22%3EEncryption%20%26%20Security%3C/text%3E%3C/svg%3E'"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="features" id="features">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-desc">
+      Cypher Core is a modular encryption and encoding platform that runs entirely in your browser. 
+      Build transformation pipelines by combining multiple cipher modules.
+    </p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>100% Client-Side</h3>
+        <p>All transformations happen in your browser. No data is sent to any server. Your privacy is guaranteed.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>Modular Design</h3>
+        <p>Chain multiple modules together to create complex transformation pipelines with unlimited possibilities.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Real-Time Processing</h3>
+        <p>See results instantly as you type or modify the pipeline. Lightning-fast browser-based processing.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Multiple Ciphers</h3>
+        <p>From classical ciphers like Caesar to modern Base64 encoding. Support for 10+ transformation modules.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Pipeline System</h3>
+        <p>Stack multiple transformations in sequence. Encode with Base64, then Caesar cipher, then reverse!</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔓</div>
+        <h3>Open Source</h3>
+        <p>Fully open source and extensible. Add your own cipher modules and customize as needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES SECTION -->
+  <section class="modules">
+    <h2 class="section-title">Available Cipher Modules</h2>
+    <div class="modules-grid">
+      <div class="module-item"><div class="module-icon">🔤</div>Base64</div>
+      <div class="module-item"><div class="module-icon">🔢</div>Base32</div>
+      <div class="module-item"><div class="module-icon">🔠</div>Hexadecimal</div>
+      <div class="module-item"><div class="module-icon">💾</div>Binary</div>
+      <div class="module-item"><div class="module-icon">🏛️</div>Caesar Cipher</div>
+      <div class="module-item"><div class="module-icon">🔄</div>ROT13</div>
+      <div class="module-item"><div class="module-icon">🔀</div>Atbash</div>
+      <div class="module-item"><div class="module-icon">📡</div>Morse Code</div>
+      <div class="module-item"><div class="module-icon">🌐</div>URL Encode</div>
+      <div class="module-item"><div class="module-icon">↩️</div>Reverse</div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <h2>Ready to Start Encrypting?</h2>
+    <p>Transform your text with powerful cipher pipelines - all in your browser</p>
+    <a href="cypher-engine.html" class="btn btn-large">Launch Cypher Engine</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Cypher Core</h4>
+        <p>Modular encryption and encoding platform for everyone.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="cypher-engine.html">Cypher Engine</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#" onclick="alert('Add your GitHub link')">GitHub</a></li>
+          <li><a href="#" onclick="alert('Add your Twitter link')">Twitter</a></li>
+          <li><a href="#" onclick="alert('Add your Discord link')">Discord</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Cypher Core. All rights reserved. Open Source Project.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('menu');
+    
+    menuToggle?.addEventListener('click', () => {
+      menu?.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-inner')) {
+        menu?.classList.remove('active');
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '#!') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            menu?.classList.remove('active');
+          }
+        }
+      });
+    });
+
+    // Simple parallax effect on scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrolled = window.pageYOffset;
+          const heroArt = document.querySelector('.hero-art .frame');
+          if (heroArt && scrolled < window.innerHeight) {
+            heroArt.style.transform = `translateY(${scrolled * 0.3}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>

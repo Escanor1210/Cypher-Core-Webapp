@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Enigma Machine: WWII's Unbreakable Code</title>
+    <style>
+        /* Basic Reset and Infographic Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .infographic-board {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #3498db;
+            font-size: 1.8em;
+            margin-top: 30px;
+            border-left: 5px solid #e74c3c;
+            padding-left: 10px;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .grid-item {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #bdc3c7;
+        }
+        .key-concept {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul li {
+            background: #d9edf7;
+            margin: 8px 0;
+            padding: 10px;
+            border-left: 5px solid #3498db;
+            border-radius: 3px;
+        }
+        .significance-list li {
+            background: #e6e6fa;
+            border-left: 5px solid #9b59b6;
+        }
+        .callout {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="infographic-board">
+        <h1>🔐 The Enigma Machine: WWII's Code Generator</h1>
+        <p class="callout">The Enigma was an electromechanical rotor cipher machine used by Nazi Germany to encrypt military communications.</p>
+
+        <div class="section">
+            <h2>⚙️ Construction and Operation</h2>
+            <p>The machine was a combination of **mechanical and electrical** subsystems, using a complex wiring path that changed with every key press, creating a polyalphabetic substitution cipher.</p>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <p class="key-concept">1. Keyboard & Lampboard</p>
+                    <p>When a key (e.g., 'A') is pressed, a complex electrical circuit is activated. The resulting encrypted letter lights up on the **Lampboard** (e.g., 'Z'). The machine is *reciprocal*—typing 'A' yields 'Z', and typing 'Z' yields 'A' with the same settings.</p>
+
+                    <p class="key-concept">2. Plugboard (Steckerbrett)</p>
+                    <p>The first and last stage of scrambling. Cables are used to swap pairs of letters (e.g., A is swapped with L, P with R). This adds a crucial layer of initial and final substitution, vastly increasing the number of potential keys.</p>
+                </div>
+
+                <div class="grid-item">
+                    <p class="key-concept">3. Rotors (Walzen)</p>
+                    <p>Typically **three** (but later four) interchangeable rotors, each with 26 electrical contacts and a unique internal wiring pattern. They are mounted on a spindle, and the current flows through them in series. Crucially, the rightmost rotor **steps (rotates)** one position with every key press, changing the entire wiring path for the next letter.</p>
+
+                    <p class="key-concept">4. Reflector (Umkehrwalze)</p>
+                    <p>A fixed wired disk that receives the current after it passes through the rotors, then sends it back through the rotors via a different path. This is what makes the encryption reciprocal, but also creates the **critical cryptographic flaw**: a letter can never be encrypted as itself.</p>
+                </div>
+            </div>
+
+            <p class="key-concept" style="text-align: center; margin-top: 20px;">
+                Total Possible Settings (Keys) for a Military Enigma: Over 158 Million Million Million!
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="section">
+            <h2>🌍 Significance in World War Two</h2>
+            <p>Cracking the Enigma code, a top-secret project codenamed **ULTRA** by the Allies, is widely considered one of the single most important factors that shortened the war.</p>
+
+            <div class="grid-container">
+                <div class="grid-item">
+                    <p class="key-concept">The Codebreakers</p>
+                    <ul class="significance-list">
+                        <li>**Polish Cipher Bureau:** First successfully reverse-engineered the Enigma's internal wiring in the early 1930s (led by **Marian Rejewski**). They passed their vital work to the British just before the war.</li>
+                        <li>**Bletchley Park, UK:** The main hub for Allied code-breaking. Mathematician **Alan Turing** led the team that designed the **'Bombe'**—an electromechanical machine used to rapidly deduce the daily Enigma settings.</li>
+                    </ul>
+                </div>
+                <div class="grid-item">
+                    <p class="key-concept">Impact on the War</p>
+                    <ul class="significance-list">
+                        <li>**Battle of the Atlantic:** Decrypted U-boat messages helped Allied convoys evade submarine "wolf packs," securing vital supply lines.</li>
+                        <li>**Strategic Advantage:** Ultra intelligence gave Allied commanders advance notice of German military plans, troop movements, and attack intentions across all fronts, including North Africa and D-Day.</li>
+                        <li>**Shortening the War:** The ability to read German secrets is estimated to have shortened the war by as much as **two years**, saving countless lives.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
